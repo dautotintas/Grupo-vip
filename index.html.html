@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Grupo VIP Pintores – Dautotintas</title>
+  <meta name="description" content="Entre no Grupo VIP exclusivo para pintores da Dautotintas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+      --color-bg: #0f0e0e;
+      --color-surface: #161414;
+      --color-border: #2c2828;
+      --color-text: #f0eded;
+      --color-text-muted: #9a9090;
+      --color-text-faint: #5a5454;
+      --color-primary: #e02020;
+      --color-primary-glow: rgba(224,32,32,0.18);
+      --color-gold: #f5a623;
+      --color-gold-muted: rgba(245,166,35,0.10);
+      --color-whatsapp: #25D366;
+      --radius: 0.875rem;
+      --radius-full: 9999px;
+      --transition: 180ms cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      /* always center content */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: rgba(224,32,32,0.3); }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      width: 100%;
+      max-width: 480px;  /* cap for larger screens, stays centered */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 56px 24px 48px;
+      overflow: hidden;
+    }
+
+    /* subtle grid bg */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(224,32,32,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(224,32,32,0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 100% 70% at 50% 30%, black 20%, transparent 100%);
+    }
+
+    /* top glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(ellipse, rgba(224,32,32,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* eyebrow */
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--color-gold);
+      opacity: 0.5;
+    }
+
+    /* main title */
+    .hero-title {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      font-size: clamp(4.5rem, 22vw, 7rem);
+      margin-bottom: 20px;
+    }
+
+    .t-white { display: block; color: var(--color-text); }
+    .t-red   { display: block; color: var(--color-primary); }
+    .t-ghost {
+      display: block;
+      -webkit-text-stroke: 1.5px var(--color-text-faint);
+      color: transparent;
+    }
+
+    /* subtitle */
+    .hero-sub {
+      position: relative;
+      z-index: 1;
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+      max-width: 34ch;
+      margin-bottom: 28px;
+    }
+
+    .hero-sub strong { color: var(--color-text); font-weight: 600; }
+
+    /* CTA */
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.45), 0 6px 20px rgba(0,0,0,0.4); }
+      70%  { box-shadow: 0 0 0 14px rgba(37,211,102,0),  0 6px 20px rgba(0,0,0,0.4); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0),     0 6px 20px rgba(0,0,0,0.4); }
+    }
+
+    .btn-cta {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--color-whatsapp);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 18px 24px;
+      border-radius: var(--radius);
+      animation: pulse 2.6s ease-out infinite;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .btn-cta:active { transform: scale(0.98); background: #1ab953; animation: none; }
+
+    .btn-cta svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+    .cta-note {
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+      font-size: 0.72rem;
+      color: var(--color-text-faint);
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    .cta-note .ok { color: var(--color-whatsapp); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: calc(100% - 48px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+      margin: 0 0 32px;
+    }
+
+    /* ── BENEFITS ── */
+    .benefits {
+      width: 100%;
+      padding: 0 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benefits-head {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 7vw, 2.2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color var(--transition);
+    }
+
+    .card:active { border-color: rgba(224,32,32,0.35); }
+
+    .card-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-body {}
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 2px;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      width: 100%;
+      padding: 0 20px 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 14px 8px;
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-text-muted);
+      margin-top: 3px;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      width: 100%;
+      padding: 32px 20px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(224,32,32,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .final-title {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 8vw, 2.5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .final-sub {
+      position: relative;
+      z-index: 1;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      max-width: 32ch;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .final-cta .btn-cta {
+      width: 100%;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      width: 100%;
+      border-top: 1px solid #1e1c1c;
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--color-text-faint);
+    }
+
+    footer a { color: var(--color-text-muted); }
+
+    /* fade in */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fu  { animation: fadeUp .65s cubic-bezier(0.16,1,0.3,1) both; }
+    .d1  { animation-delay:.05s; }
+    .d2  { animation-delay:.15s; }
+    .d3  { animation-delay:.25s; }
+    .d4  { animation-delay:.36s; }
+    .d5  { animation-delay:.48s; }
+
+    @media(prefers-reduced-motion:reduce){
+      *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="eyebrow fu d1">Exclusivo para pintores</p>
+    <h1 class="hero-title fu d2">
+      <span class="t-white">Acesso</span>
+      <span class="t-red">VIP</span>
+      <span class="t-ghost">Pintores</span>
+    </h1>
+    <p class="hero-sub fu d3">
+      Entre no grupo exclusivo da <strong>Dautotintas</strong> e receba
+      <strong>ofertas antecipadas</strong>, dicas técnicas e
+      <strong>vantagens que só membros VIP têm</strong>.
+    </p>
+    <a href="https://chat.whatsapp.com/LINK_DO_SEU_GRUPO" target="_blank" rel="noopener noreferrer" class="btn-cta fu d4">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.551 4.12 1.516 5.856L0 24l6.335-1.499A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.365l-.359-.213-3.757.888.939-3.639-.234-.373A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+      </svg>
+      Quero entrar no Grupo VIP
+    </a>
+    <p class="cta-note fu d5">
+      <span class="ok">✓ Grátis</span> &nbsp;·&nbsp; Só pintores profissionais &nbsp;·&nbsp; Vagas limitadas
+    </p>
+  </section>
+
+  <!-- BENEFITS -->
+  <div class="divider"></div>
+
+  <section class="benefits">
+    <div class="benefits-head">
+      <span class="label">O que você ganha</span>
+      <h2 class="section-title">Vantagens reais<br>para quem pinta</h2>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <div class="card-body">
+        <h3 class="card-title">Ofertas em primeira mão</h3>
+        <p class="card-desc">Promoções antes de todo mundo. Os melhores preços chegam primeiro no grupo.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🎨</span>
+      <div class="card-body">
+        <h3 class="card-title">Dicas técnicas</h3>
+        <p class="card-desc">Conteúdo exclusivo sobre produtos e técnicas do mercado automotivo.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🤝</span>
+      <div class="card-body">
+        <h3 class="card-title">Atendimento direto</h3>
+        <p class="card-desc">Fale direto com a equipe Dautotintas. Suporte quando precisar.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🏆</span>
+      <div class="card-body">
+        <h3 class="card-title">Condições especiais</h3>
+        <p class="card-desc">Descontos e benefícios exclusivos que o cliente comum não tem acesso.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🔔</span>
+      <div class="card-body">
+        <h3 class="card-title">Lançamentos em 1ª mão</h3>
+        <p class="card-desc">Primeiro a saber sobre novos produtos no maior estoque do Centro-Oeste.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">📦</span>
+      <div class="card-body">
+        <h3 class="card-title">Estoque garantido</h3>
+        <p class="card-desc">Mais de 11 filiais. Reserve e compre facilmente pelo grupo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="divider"></div>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-number">+11</span>
+      <span class="stat-label">Filiais</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">+20</span>
+      <span class="stat-label">Anos</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">#1</span>
+      <span class="stat-label">Estoque CO</span>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2 class="final-title">Sua vaga pode<br>ser a última</h2>
+    <p class="final-sub">Grupo exclusivo para pintores profissionais. Garante o seu lugar agora.</p>
+    <a href="https://chat.whatsapp.com/LINK_DO_SEU_GRUPO" target="_blank" rel="noopener noreferrer" class="btn-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.551 4.12 1.516 5.856L0 24l6.335-1.499A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.365l-.359-.213-3.757.888.939-3.639-.234-.373A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+      </svg>
+      Entrar no Grupo VIP Agora
+    </a>
+    <p class="cta-note" style="margin-top:12px">
+      <span class="ok">✓ Grátis</span> &nbsp;·&nbsp; Só pintores profissionais &nbsp;·&nbsp; Vagas limitadas
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 Dautotintas · <a href="https://dautotintas.com.br" target="_blank" rel="noopener noreferrer">dautotintas.com.br</a></p>
+  </footer>
+
+</div><!-- /page -->
+</body>
+</html>
